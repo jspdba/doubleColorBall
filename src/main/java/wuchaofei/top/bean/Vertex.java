@@ -15,6 +15,14 @@ public class Vertex {
      */
     Edge link;
 
+    public Vertex(){
+    }
+
+    public Vertex(int num, Edge link){
+        this.num = num;
+        this.link = link;
+    }
+
     public int getNum() {
         return num;
     }
