@@ -94,6 +94,21 @@ public class VertexMatrix {
                 }else{
                     vertices[colume][row] +=1;
                 }
+                /*for (int k = j+1; k < line.size(); k++) {
+                    int row = line.get(j)-1;
+                    int colume = line.get(k)-1;
+                    if(vertices[row][colume]==MaxValue){
+                        vertices[row][colume] = 1;
+                    }else{
+                        vertices[row][colume] +=1;
+                    }
+
+                    if(vertices[colume][row]==MaxValue){
+                        vertices[colume][row] = 1;
+                    }else{
+                        vertices[colume][row] +=1;
+                    }
+                }*/
             }
         }
     }
