@@ -17,11 +17,25 @@ public class VertexMatrix {
      * 定义最大顶点数
      */
     public static final int Max=33;
+//    public static final int Max=6;
     public static final int MaxValue = Integer.MAX_VALUE;
     /**
      * 图的所有顶点
      */
    private int[][] vertices = new int[Max][Max];
+   /*private int[][] vertices = {{
+       MaxValue, 16,20,19,MaxValue,MaxValue
+    },{
+       16,MaxValue,11,MaxValue,6,5
+    },{
+       20,11,MaxValue,22,14,MaxValue
+    },{
+       19,MaxValue,22,MaxValue,18,MaxValue
+    },{
+       MaxValue,6,14,18,MaxValue,9
+    },{
+       MaxValue,5,MaxValue,MaxValue,9,MaxValue
+    }};*/
 
    /**
     * 图的深度优先遍历算法中用到的顶点是否被访问过的标记数组
