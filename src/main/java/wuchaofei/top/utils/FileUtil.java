@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 public class FileUtil {
-   public static List<ArrayList> readTextFile(String path){
+   public static List<ArrayList<Integer>> readTextFile(String path){
        ArrayList<String> arrayList = new ArrayList();
        try {
            File file = new File(path);
@@ -29,7 +29,7 @@ public class FileUtil {
        } catch (IOException e) {
            e.printStackTrace();
        }
-       List<ArrayList> result = new ArrayList<ArrayList>();
+       List<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
        for (String line : arrayList) {
            ArrayList list = new ArrayList();
            String[] strs = line.split("\\s+");

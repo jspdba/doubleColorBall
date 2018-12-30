@@ -4,6 +4,7 @@ import sun.reflect.misc.FieldUtil;
 import wuchaofei.top.utils.FileUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -56,7 +57,79 @@ public class VertexLink {
             this.vertices[i] = new Vertex(i+1, null);
         }
         // 读取边信息
-        List<ArrayList> result = FileUtil.readTextFile("D:\\zhongliang\\doubleColorBall\\src\\main\\resources\\balls.txt");
-        System.out.println(result);
+        List<ArrayList<Integer>> result = FileUtil.readTextFile("D:\\zhongliang\\doubleColorBall\\src\\main\\resources\\balls.txt");
+        for (int i = 0; i < result.size(); i++) {
+            ArrayList<Integer> line = result.get(i);
+            for (int j = 0; j < line.size()-1; j++) {
+                // 创建一条边
+                Edge edge = new Edge(line.get(j+1)-1,1,null);
+                //找到顶点存入第一条边
+                Vertex vertex = this.vertices[line.get(j)-1];
+
+                Edge p = vertex.getLink();
+                if(p==null){
+                    vertex.setLink(edge);
+                }else{
+                    // 找到插入位置,进行插入
+                    Edge r = null;// p的前一个节点
+                    do{
+                        // 找到要插入位置
+                        if(edge.getVertexIndex()<p.getVertexIndex()){
+                            break;
+                        }
+                        r = p;
+                        p= p.getNext();
+                    }while(p!=null);
+                    // 直接插入到末尾
+                    if(p==null){
+                        if(r.getVertexIndex()==edge.getVertexIndex()){
+                            r.setWeight(r.getWeight()+1);
+                        }else{
+                            r.next = edge;
+                        }
+                    }else{
+                        // 插入顶点与第一条边之间
+                        if(r==null){
+                            Edge temp = vertex.getLink();
+                            edge.setNext(temp);
+                            vertex.setLink(edge);
+                        }else{
+                            if(r.getVertexIndex()==edge.getVertexIndex()){
+                                r.setWeight(r.getWeight()+1);
+                            }else{
+                                // 插入到r与p之间
+                                Edge temp = p;
+                                edge.setNext(p);
+                                r.setNext(edge);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer sb=new StringBuffer();
+        sb.append("VertexLink=[\n");
+        for (int i = 0; i < vertices.length; i++) {
+            Vertex vertex = vertices[i];
+            sb.append(vertex.getNum()+":");
+            Edge p = vertex.getLink();
+            if(p==null){
+                sb.append("[]\n");
+            }else{
+                sb.append("["+(p.getVertexIndex()+1)+","+p.getWeight()+"]");
+                p = p.getNext();
+                while (p!=null){
+                    sb.append(",["+(p.getVertexIndex()+1)+","+p.getWeight()+"]");
+                    p = p.getNext();
+                };
+                sb.append("\n");
+            }
+        }
+        sb.append("]\n");
+        return sb.toString();
     }
 }

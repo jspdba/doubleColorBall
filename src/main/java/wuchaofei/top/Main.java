@@ -9,7 +9,9 @@ import wuchaofei.top.bean.VertexLink;
 
 public class Main {
     public static void main(String[] args) {
-        VertexLink.getInstance().init();
+        VertexLink vertexLink = VertexLink.getInstance();
+        vertexLink.init();
+        System.out.println(vertexLink.toString());
     }
 }
 

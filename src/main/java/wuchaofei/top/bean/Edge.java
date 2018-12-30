@@ -20,6 +20,12 @@ public class Edge {
      */
     Edge next;
 
+    public Edge(int vertexIndex, int weight, Edge next) {
+        this.vertexIndex = vertexIndex;
+        this.weight = weight;
+        this.next = next;
+    }
+
     public int getVertexIndex() {
         return vertexIndex;
     }
@@ -42,5 +48,34 @@ public class Edge {
 
     public void setNext(Edge next) {
         this.next = next;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Edge edge = (Edge) o;
+
+        if (vertexIndex != edge.vertexIndex) return false;
+        if (weight != edge.weight) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = vertexIndex;
+        result = 31 * result + weight;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "vertexIndex=" + vertexIndex +
+                ", weight=" + weight +
+                ", next=" + next +
+                '}';
     }
 }

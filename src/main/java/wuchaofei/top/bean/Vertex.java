@@ -38,4 +38,12 @@ public class Vertex {
     public void setLink(Edge link) {
         this.link = link;
     }
+
+    @Override
+    public String toString() {
+        return "Vertex{" +
+                "num=" + num +
+                ", link=" + link +
+                '}';
+    }
 }
