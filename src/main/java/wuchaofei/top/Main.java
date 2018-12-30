@@ -23,7 +23,8 @@ public class Main {
 //        图的邻接矩阵算法
         VertexMatrix vertexMatrix=new VertexMatrix();
         vertexMatrix.init();
-        System.out.println(vertexMatrix.toString());
+//        System.out.println(vertexMatrix.toString());
+        vertexMatrix.minspantPrim();
     }
 
 }

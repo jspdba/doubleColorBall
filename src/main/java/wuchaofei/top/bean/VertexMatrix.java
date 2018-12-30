@@ -246,13 +246,47 @@ public class VertexMatrix {
     }
 
     /**
-     * 最小生成树普里姆算法
+     * 最小生成树 普里姆算法
      */
-    void minspantPrim(){
+    public void minspantPrim(){
         // 用于存放V-U中各顶点到U中各顶点的权值
-        int lowcost[]=new int[Max];
+        int lowcost[] = new int[Max];
+        int mincost,k = 0;
 
         // 用于记录该边在U中的那个顶点
-        int teed[]=new int[Max];
+        int teend[]=new int[Max];
+        lowcost[0]=0;
+        teend[0]=0;
+
+
+        /**
+         * 对辅助数组进行初始化
+         */
+        for (int i = 1; i < Max; i++) {
+            teend[i]=0;
+            lowcost[i] = vertices[0][i];
+        }
+
+        for (int i = 1; i < Max; i++) {
+            mincost=MaxValue;
+            int j=1;
+            while(j<Max){
+                if(lowcost[j]>0 && mincost>lowcost[j]){
+                    mincost=lowcost[j];
+                    k = j;
+                }
+                j++;
+            }
+//            选择一条一端在u，另一端在v-u上的所有边中权最小的边（k,teend[k]）
+//            输出最小生成树的一条边
+            System.out.print("("+(teend[k]+1)+","+(k+1)+"),");
+            lowcost[k]=0; // 定点k加入到U中
+            for (j = 0; j < Max; j++) {
+                if(vertices[k][j] < lowcost[j]){
+                    lowcost[j] = vertices[k][j];
+                    teend[j] = k;
+                }
+            }
+        }
     }
 }
