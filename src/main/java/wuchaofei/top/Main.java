@@ -1,7 +1,5 @@
 package wuchaofei.top;
 
-import wuchaofei.top.bean.Vertex;
-import wuchaofei.top.bean.VertexLink;
 import wuchaofei.top.bean.VertexMatrix;
 
 /**

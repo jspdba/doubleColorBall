@@ -75,7 +75,7 @@ public class VertexMatrix {
             }
         }
         // 读取边信息
-        List<ArrayList<Integer>> result = FileUtil.readTextFile("D:\\zhongliang\\doubleColorBall\\src\\main\\resources\\balls.txt");
+        List<ArrayList<Integer>> result = FileUtil.readTextFile("src/main/resources/balls.txt");
 
 //        对数据进行图的邻接表存储
         for (int i = 0; i < result.size(); i++) {
@@ -129,7 +129,7 @@ public class VertexMatrix {
     }
     /**
      * 对一个顶点的图的深度优先递归算法
-     * @param vertex 顶点vertex
+     * @param v 顶点vertex
      */
     void deepFindFirst(int v){
         // 访问这个顶点，同时标记已经访问过了
