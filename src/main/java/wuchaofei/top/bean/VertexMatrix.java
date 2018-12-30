@@ -244,4 +244,15 @@ public class VertexMatrix {
         }
         System.out.println();
     }
+
+    /**
+     * 最小生成树普里姆算法
+     */
+    void minspantPrim(){
+        // 用于存放V-U中各顶点到U中各顶点的权值
+        int lowcost[]=new int[Max];
+
+        // 用于记录该边在U中的那个顶点
+        int teed[]=new int[Max];
+    }
 }
