@@ -22,6 +22,13 @@ public class VertexLink {
      */
    private Vertex[] vertices = new Vertex[Max];
 
+   /**
+     * 图的深度优先遍历算法中用到的顶点是否被访问过的标记数组
+     * 0:未访问过该顶点
+     * 2:已访问过该顶点
+     */
+   private int[] visited = new int[Max];
+
     /**
      * 持有一个对象的实例
      */
@@ -51,6 +58,9 @@ public class VertexLink {
         this.vertexLink = vertexLink;
     }
 
+    /**
+     * 初始化图的邻接矩阵表示
+     */
     public void init(){
         // 创建33个顶点，并赋初值
         for (int i = 0; i < Max; i++) {
@@ -58,6 +68,8 @@ public class VertexLink {
         }
         // 读取边信息
         List<ArrayList<Integer>> result = FileUtil.readTextFile("D:\\zhongliang\\doubleColorBall\\src\\main\\resources\\balls.txt");
+
+//        对数据进行图的邻接表存储
         for (int i = 0; i < result.size(); i++) {
             ArrayList<Integer> line = result.get(i);
             for (int j = 0; j < line.size()-1; j++) {
@@ -131,5 +143,81 @@ public class VertexLink {
         }
         sb.append("]\n");
         return sb.toString();
+    }
+
+    /**
+     * 访问当前顶点
+     * @param vertex
+     */
+    private void visit(int vertex){
+        System.out.print((vertex+1)+" ");
+        // 标记这个顶点已经访问过了
+        visited[vertex] = 1;
+    }
+    /**
+     * 对一个顶点的图的深度优先递归算法
+     * @param vertex 顶点vertex
+     */
+    void deepFindFirst(int v){
+        // 访问这个顶点，同时标记已经访问过了
+        visit(v);
+        // 查找vertex的第一个邻接点
+        int w = firstVertex(v);
+        while(w!=-1){
+            if(visited[w]==0){
+                // 对未访问过的第一个邻接点进行深度优先搜索
+                deepFindFirst(w);
+            }
+            // 求v的下一个邻接点，若无邻接点返回-1
+            w = nextVertex(v);
+        }
+    }
+
+    /**
+     * 对当前图进行深度优先搜素递归算法
+     */
+    public void travelDeepFindFirst(){
+        for (int i = 0; i < Max; i++) {
+            visited[i]=0;
+        }
+
+        for (int i = 0; i < Max; i++) {
+            if(visited[i]==0){
+                deepFindFirst(i);
+            }
+        }
+    }
+
+    /**
+     * 查找顶点v的下一个邻接点，若无邻接点返回-1
+     * 遍历顶点的边，返回未被访问过的第一条边
+     * @param v
+     * @return
+     */
+    private int nextVertex(int v) {
+        // 第一条边
+        Edge edge = vertices[v].getLink();
+        if(edge != null){
+            do{
+                if(visited[edge.getVertexIndex()]==0){
+                    return edge.getVertexIndex();
+                }
+                edge=edge.getNext();
+            }while(edge!=null);
+        }
+        return -1;
+    }
+
+    /**
+     * 查找顶点vertex的第一个邻接点，失败返回-1
+     * @param vertex 顶点下标
+     * @return
+     */
+    private int firstVertex(int vertex) {
+        Edge firstVertext = vertices[vertex].getLink();
+        if(firstVertext!=null){
+            return firstVertext.getVertexIndex();
+        }
+        return -1;
     }
 }

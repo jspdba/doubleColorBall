@@ -12,6 +12,8 @@ public class Main {
         VertexLink vertexLink = VertexLink.getInstance();
         vertexLink.init();
         System.out.println(vertexLink.toString());
+
+        vertexLink.travelDeepFindFirst();
     }
 }
 
