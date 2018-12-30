@@ -12,9 +12,11 @@ public class Main {
         VertexLink vertexLink = VertexLink.getInstance();
         vertexLink.init();
         System.out.println(vertexLink.toString());
-
-        vertexLink.travelDeepFindFirst();
+//        图的深度优先遍历
+//        vertexLink.travelDeepFindFirst();
+//        图的广度优先遍历
+//        vertexLink.travelBFS();
+//        求图的连通分量
+        vertexLink.component();
     }
 }
-
-

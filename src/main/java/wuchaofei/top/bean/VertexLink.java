@@ -1,6 +1,7 @@
 package wuchaofei.top.bean;
 
 import sun.reflect.misc.FieldUtil;
+import wuchaofei.top.queue.LinkQueue;
 import wuchaofei.top.utils.FileUtil;
 
 import java.util.ArrayList;
@@ -28,6 +29,11 @@ public class VertexLink {
      * 2:已访问过该顶点
      */
    private int[] visited = new int[Max];
+
+    /**
+     * 图的广度优先搜索算法包含一个队列
+     */
+   private LinkQueue linkQueue;
 
     /**
      * 持有一个对象的实例
@@ -186,6 +192,7 @@ public class VertexLink {
                 deepFindFirst(i);
             }
         }
+        System.out.println();
     }
 
     /**
@@ -219,5 +226,69 @@ public class VertexLink {
             return firstVertext.getVertexIndex();
         }
         return -1;
+    }
+
+    /**
+     * 图的广度优先搜索
+     * @param v 顶点索引
+     */
+    void BFS(int v){
+//        访问顶点v,同时设置访问标记
+        visit(v);
+        // 加入队列
+        linkQueue.addQueue(v);
+        while(!linkQueue.isEmpty()){
+            v = linkQueue.deleteQueue();
+            /**
+             * 查找第一个邻接点，无邻接点返回-1
+             */
+            int w = firstVertex(v);
+            while(w!=-1){
+                if(visited[w]==0){
+                    visit(w);
+                    linkQueue.addQueue(w);
+                    visited[w]=1;
+                }
+                /**
+                 * 求v的下一个邻接点，无邻接点返回-1
+                 */
+                w=nextVertex(v);
+            }
+        }
+    }
+
+    /**
+     * 图的广度优先遍历算法
+     */
+    public void travelBFS(){
+        for (int i = 0; i < Max; i++) {
+            visited[i]=0;
+        }
+
+        this.linkQueue = new LinkQueue();
+
+        for (int i = 0; i < Max; i++) {
+            if(visited[i]==0){
+                BFS(i);
+            }
+        }
+        System.out.println();
+    }
+
+    /**
+     * 求图的连通分量
+     */
+    public void component(){
+        for (int i = 0; i < Max; i++) {
+            visited[i]=0;
+        }
+
+        for (int i = 0; i < Max; i++) {
+            if(visited[i]==0){
+                System.out.println(i);
+                deepFindFirst(i);
+            }
+        }
+        System.out.println();
     }
 }
