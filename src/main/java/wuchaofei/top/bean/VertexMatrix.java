@@ -16,8 +16,9 @@ public class VertexMatrix {
     /**
      * 定义最大顶点数
      */
-    public static final int Max=33;
-//    public static final int Max=6;
+    public static final int Max = 33;
+//    public static final int Max = 6;
+//    public static final int Max = 7;
     public static final int MaxValue = Integer.MAX_VALUE;
     /**
      * 图的所有顶点
@@ -35,6 +36,21 @@ public class VertexMatrix {
        MaxValue,6,14,18,MaxValue,9
     },{
        MaxValue,5,MaxValue,MaxValue,9,MaxValue
+    }};*/
+   /*private int[][] vertices = {{
+       0,10,2,MaxValue,MaxValue,MaxValue,MaxValue
+    },{
+       10,0,MaxValue,MaxValue,1,MaxValue,MaxValue
+    },{
+       2,MaxValue,0,2,MaxValue,11,MaxValue
+    },{
+       MaxValue,MaxValue,2,0,4,6,MaxValue
+    },{
+       MaxValue,1,MaxValue,4,0,MaxValue,7
+    },{
+       MaxValue,MaxValue,11,6,MaxValue,0,3
+    },{
+        MaxValue,MaxValue,MaxValue,MaxValue,7,3,0
     }};*/
 
    /**
@@ -92,7 +108,8 @@ public class VertexMatrix {
         List<ArrayList<Integer>> result = FileUtil.readTextFile("src/main/resources/balls.txt");
 
 //        对数据进行图的邻接表存储
-        for (int i = 0; i < result.size(); i++) {
+//        对相邻数据关联+1
+        /*for (int i = 0; i < result.size(); i++) {
             ArrayList<Integer> line = result.get(i);
             for (int j = 0; j < line.size()-1; j++) {
                 int row = line.get(j)-1;
@@ -108,7 +125,14 @@ public class VertexMatrix {
                 }else{
                     vertices[colume][row] +=1;
                 }
-                /*for (int k = j+1; k < line.size(); k++) {
+            }
+        }*/
+
+        // 对同组的数据关联 +1
+        for (int i = 0; i < result.size(); i++) {
+            ArrayList<Integer> line = result.get(i);
+            for (int j = 0; j < line.size()-1; j++) {
+                for (int k = j+1; k < line.size(); k++) {
                     int row = line.get(j)-1;
                     int colume = line.get(k)-1;
                     if(vertices[row][colume]==MaxValue){
@@ -122,7 +146,7 @@ public class VertexMatrix {
                     }else{
                         vertices[colume][row] +=1;
                     }
-                }*/
+                }
             }
         }
     }
@@ -317,5 +341,119 @@ public class VertexMatrix {
                 }
             }
         }
+    }
+
+    /**
+     * 求最短路径的迪杰斯特拉算法
+     * v到各顶点的最短路径算法
+     * @param v 顶点v
+     */
+    public void shortestPath(int v){
+        int[] s = new int[Max];
+        int[] dist = new int[Max];                // v 到各顶点之间最短路径的路径长度
+        int[][] path = new int[Max][Max];       // 第i行元素记录了源点v到顶点i的最短路径上经过的所有顶点（序列）
+        int[] pos = new int[Max];
+        int u,w = 0;
+
+        // 对辅助数组进行初始化
+        for (int i = 0; i < Max; i++) {
+            s[i] = 0;                           // 标记数组置0
+            dist[i] = vertices[v][i];           // 将邻接矩阵第v行元素依次送dist数组
+            path[i][0] = v;                     // 源点v到各顶点的路径置初值
+            pos[i] = 0;                         // 第i条路径的位置计数器置初值
+        }
+
+        s[v] = 1;
+        int count = 1; //计数器赋初值
+
+        while(count < Max){
+            u = minDist(s, dist);       // 利用s和dist在尚未找到最短路径的顶点中确定一个与v最近的顶点u
+            s[u] = 1;
+            System.out.println(u);
+            path[u][++pos[u]] = u;      // 将u添加到从v到u的最短路径中
+            count++;
+            while(true){
+                if((w = searchVer(s,dist,u)) == -1){            // 根据u更新从v到所有尚未确定最短路径的顶点的路径长度
+                    break;                                      //未找到，路径长度更新过程结束
+                }else{
+                    if(dist[u] + vertices[u][w] < dist[w]){
+                        dist[w] = dist[u]+vertices[u][w];
+                        for (int i = 0; i < pos[u]; i++) {      //用从原点v到顶点u的路径替换从原点v到顶点w的路径
+                            path[w][i] = path[u][i];
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /**
+     * 打印一维数组
+     * @param item
+     */
+    private void display(int[] item, String name) {
+        System.out.println("--------------" + name + "---------------");
+        for (int i = 0; i < item.length; i++) {
+            System.out.print(item[i]==MaxValue?"OO," : item[i] + ",");
+        }
+        System.out.println();
+        System.out.println("--------------" + name + "---------------");
+    }
+
+    /**
+     * 利用标记数组s和dist找到一个通过u可以直接到达且尚未确定从原点到该顶点最短路径的一个顶点
+     *
+     * 若找到算法返回该顶点，否则返回-1
+     * @param s 标记数组
+     * @param dist 路径长度
+     * @param u 顶点u
+     * @return 成功返回该顶点，失败返回-1
+     */
+    private int searchVer(int[] s, int[] dist, int u) {
+        int min = -1;
+        for (int i = 0; i < Max; i++) {
+            if(s[i] == 0 && u!=i && vertices[u][i] != MaxValue){
+                min = i;
+                break;
+            }
+        }
+
+        if(min > -1){
+            for (int i = min; i < Max; i++) {
+                if(s[i] == 0 && vertices[u][min] > vertices[u][i] && u!=i){
+                    min = i;
+                }
+            }
+
+            if(dist[min] > dist[u] + vertices[u][min]){
+                return min;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 选择一个最小值
+     * @param s 标记数组
+     * @param dist 路径最小值
+     * @return
+     */
+    private int minDist(int[] s, int[] dist) {
+        int min = -1;
+        for (int i = 1; i < Max; i++) {
+            if(s[i]==0){
+                // min赋初值为第一个未访问过的元素
+                min = i;
+                break;
+            }
+        }
+
+        if(min > -1){
+            for (int i = min; i < dist.length; i++) {
+                if(s[i] == 0 && dist[min] > dist[i]){
+                    min = i;
+                }
+            }
+        }
+        return min;
     }
 }
