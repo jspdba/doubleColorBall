@@ -17,13 +17,13 @@ public class VertexMatrix {
      * 定义最大顶点数
      */
     public static final int Max = 33;
-//    public static final int Max = 6;
+    //    public static final int Max = 6;
 //    public static final int Max = 7;
     public static final int MaxValue = Integer.MAX_VALUE;
     /**
      * 图的所有顶点
      */
-   private int[][] vertices = new int[Max][Max];
+    private int[][] vertices = new int[Max][Max];
    /*private int[][] vertices = {{
        MaxValue, 16,20,19,MaxValue,MaxValue
     },{
@@ -53,22 +53,22 @@ public class VertexMatrix {
         MaxValue,MaxValue,MaxValue,MaxValue,7,3,0
     }};*/
 
-   /**
-    * 图的深度优先遍历算法中用到的顶点是否被访问过的标记数组
+    /**
+     * 图的深度优先遍历算法中用到的顶点是否被访问过的标记数组
      * 0:未访问过该顶点
      * 2:已访问过该顶点
      */
-   private int[] visited = new int[Max];
+    private int[] visited = new int[Max];
 
     /**
      * 图的广度优先搜索算法包含一个队列
      */
-   private LinkQueue linkQueue;
+    private LinkQueue linkQueue;
 
     /**
      * 持有一个对象的实例
      */
-   private static VertexMatrix vertexLink = new VertexMatrix();
+    private static VertexMatrix vertexLink = new VertexMatrix();
 
     public int[][] getVertices() {
         return vertices;
@@ -523,5 +523,49 @@ public class VertexMatrix {
             System.out.println("最小路径权值->" + (dist[i]==MaxValue?"∞":dist[i]));
         }
         System.out.println();
+    }
+
+    /**
+     * 求最短路径的floyed算法
+     * @param g
+     * @param D
+     */
+    private void floyd(int[][] g,int[][] D){
+        for(int k = 0;k<Max;k++)
+            for(int i = 0;i<Max;i++){
+                for(int j = 0;j<Max;j++){
+                    if(k == 0){
+                        D[i][j] =g[i][j];
+                    }else{
+                        if(D[i][k] != MaxValue && D[k][j] != MaxValue && D[i][j]!=MaxValue){
+//                            System.out.println(D[i][j]+","+D[i][k]+","+D[k][j]);
+                            D[i][j] = D[i][j]>(D[i][k]+D[k][j])?D[i][k]+D[k][j]:D[i][j];
+                        }
+                    }
+                }
+            }
+    }
+    public void printgraph(int[][] g,int v){
+        for(int i = 0;i<v;i++){
+            for (int j = 0;j<v;j++){
+                if(g[i][j] == MaxValue)
+                    System.out.print("* ");
+                else
+                    System.out.print(g[i][j]+" ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    /**
+     * 多源最短路径问题，动态规划的思想
+     * 运行算法floyed
+     */
+    public void runFloyed(){
+        int[][]  graph = new int[Max][Max];
+//        printgraph(this.vertices, Max);
+        floyd(this.vertices, graph);
+//        printgraph(graph,Max);
     }
 }
