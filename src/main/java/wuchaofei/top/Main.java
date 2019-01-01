@@ -26,8 +26,8 @@ public class Main {
 //        System.out.println(vertexMatrix.toString());
 //        vertexMatrix.minspantPrim();
         // 迪杰斯特拉算法求最短路径
-//        vertexMatrix.shortestPath(1-1);
-        vertexMatrix.runFloyed();
+        vertexMatrix.shortestPath(1-1);
+//        vertexMatrix.runFloyed();
     }
 
 }
