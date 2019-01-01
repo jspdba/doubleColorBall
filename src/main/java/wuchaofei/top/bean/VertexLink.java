@@ -162,7 +162,7 @@ public class VertexLink {
     }
     /**
      * 对一个顶点的图的深度优先递归算法
-     * @param vertex 顶点vertex
+     * @param v 顶点vertex
      */
     void deepFindFirst(int v){
         // 访问这个顶点，同时标记已经访问过了
