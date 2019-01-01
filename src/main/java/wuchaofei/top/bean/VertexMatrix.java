@@ -16,14 +16,14 @@ public class VertexMatrix {
     /**
      * 定义最大顶点数
      */
-//    public static final int Max = 33;
+    public static final int Max = 33;
 //    public static final int Max = 6;
-    public static final int Max = 7;
+//    public static final int Max = 7;
     public static final int MaxValue = Integer.MAX_VALUE;
     /**
      * 图的所有顶点
      */
-//   private int[][] vertices = new int[Max][Max];
+   private int[][] vertices = new int[Max][Max];
    /*private int[][] vertices = {{
        MaxValue, 16,20,19,MaxValue,MaxValue
     },{
@@ -37,7 +37,7 @@ public class VertexMatrix {
     },{
        MaxValue,5,MaxValue,MaxValue,9,MaxValue
     }};*/
-   private int[][] vertices = {{
+   /*private int[][] vertices = {{
        0,10,2,MaxValue,MaxValue,MaxValue,MaxValue
     },{
        10,0,MaxValue,MaxValue,1,MaxValue,MaxValue
@@ -51,7 +51,7 @@ public class VertexMatrix {
        MaxValue,MaxValue,11,6,MaxValue,0,3
     },{
         MaxValue,MaxValue,MaxValue,MaxValue,7,3,0
-    }};
+    }};*/
 
    /**
     * 图的深度优先遍历算法中用到的顶点是否被访问过的标记数组
@@ -98,9 +98,6 @@ public class VertexMatrix {
      * 初始化图的邻接矩阵表示
      */
     public void init(){
-        if(true){
-            return;
-        }
         // 创建33个顶点，并赋初值
         for (int i = 0; i < Max; i++) {
             for (int j = 0; j < Max; j++) {
@@ -131,7 +128,7 @@ public class VertexMatrix {
             }
         }*/
 
-        for (int i = 0; i < result.size(); i++) {
+        /*for (int i = 0; i < result.size(); i++) {
             ArrayList<Integer> line = result.get(i);
             for (int j = 0; j < line.size()-1; j++) {
                 int row = line.get(j)-1;
@@ -142,13 +139,13 @@ public class VertexMatrix {
                     vertices[row][colume] -=1;
                 }
                 // 双向
-                /*if(vertices[colume][row]==MaxValue){
+                if(vertices[colume][row]==MaxValue){
                     vertices[colume][row] = -1;
                 }else{
                     vertices[colume][row] -=1;
-                }*/
+                }
             }
-        }
+        }*/
 
         // 对同组的数据关联 +1
         /*for (int i = 0; i < result.size(); i++) {
@@ -172,7 +169,7 @@ public class VertexMatrix {
             }
         }*/
 //        对同组的数据关联 -1
-        /*for (int i = 0; i < result.size(); i++) {
+        for (int i = 0; i < result.size(); i++) {
             ArrayList<Integer> line = result.get(i);
             for (int j = 0; j < line.size()-1; j++) {
                 for (int k = j+1; k < line.size(); k++) {
@@ -190,7 +187,7 @@ public class VertexMatrix {
                     }
                 }
             }
-        }*/
+        }
     }
 
     @Override
@@ -423,7 +420,7 @@ public class VertexMatrix {
             path[u][pos[u]] = u;      // 将u添加到从v到u的最短路径中
             count++;
             for (int i = 0; i < Max; i++) {
-                if(s[i] == 1 || vertices[u][i] == MaxValue){
+                if(s[i] == 1 || vertices[u][i] == MaxValue || dist[u] == MaxValue){
                     continue;
                 }
                 w = i;

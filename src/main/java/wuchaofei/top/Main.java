@@ -25,7 +25,7 @@ public class Main {
         vertexMatrix.init();
 //        System.out.println(vertexMatrix.toString());
 //        vertexMatrix.minspantPrim();
-        vertexMatrix.shortestPath(0);
+        vertexMatrix.shortestPath(1-1);
     }
 
 }
