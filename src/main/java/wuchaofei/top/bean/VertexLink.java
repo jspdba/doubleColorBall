@@ -17,7 +17,7 @@ public class VertexLink {
     /**
      * 定义最大顶点数
      */
-    public static final int Max=33;
+    public static final int Max = 33;
     /**
      * 图的所有顶点
      */
@@ -107,7 +107,7 @@ public class VertexLink {
                         }
                     }else{
                         // 插入顶点与第一条边之间
-                        if(r==null){
+                        if(r == null){
                             Edge temp = vertex.getLink();
                             edge.setNext(temp);
                             vertex.setLink(edge);
@@ -291,4 +291,6 @@ public class VertexLink {
         }
         System.out.println();
     }
+
+
 }

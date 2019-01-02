@@ -7,6 +7,11 @@ package wuchaofei.top.bean;
 
 public class Vertex {
     /**
+     * 顶点的入度
+     * 用于AOV网的存储结构，用在拓扑排序算法中
+     */
+    int indegree;
+    /**
      * 顶点的数据信息（代表红球）
      */
     int num;
@@ -39,10 +44,19 @@ public class Vertex {
         this.link = link;
     }
 
+    public int getIndegree() {
+        return indegree;
+    }
+
+    public void setIndegree(int indegree) {
+        this.indegree = indegree;
+    }
+
     @Override
     public String toString() {
         return "Vertex{" +
-                "num=" + num +
+                "indegree=" + indegree +
+                ", num=" + num +
                 ", link=" + link +
                 '}';
     }
