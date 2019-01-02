@@ -16,15 +16,15 @@ public class VertexMatrix {
     /**
      * 定义最大顶点数
      */
-    public static final int Max = 33;
-    //    public static final int Max = 6;
+//    public static final int Max = 33;
+        public static final int Max = 6;
 //    public static final int Max = 7;
     public static final int MaxValue = Integer.MAX_VALUE;
     /**
      * 图的所有顶点
      */
-    private int[][] vertices = new int[Max][Max];
-   /*private int[][] vertices = {{
+//    private int[][] vertices = new int[Max][Max];
+   private int[][] vertices = {{
        MaxValue, 16,20,19,MaxValue,MaxValue
     },{
        16,MaxValue,11,MaxValue,6,5
@@ -36,7 +36,7 @@ public class VertexMatrix {
        MaxValue,6,14,18,MaxValue,9
     },{
        MaxValue,5,MaxValue,MaxValue,9,MaxValue
-    }};*/
+    }};
    /*private int[][] vertices = {{
        0,10,2,MaxValue,MaxValue,MaxValue,MaxValue
     },{
@@ -98,6 +98,9 @@ public class VertexMatrix {
      * 初始化图的邻接矩阵表示
      */
     public void init(){
+        if(true){
+            return;
+        }
         // 创建33个顶点，并赋初值
         for (int i = 0; i < Max; i++) {
             for (int j = 0; j < Max; j++) {
@@ -392,6 +395,55 @@ public class VertexMatrix {
     }
 
     /**
+     * 最小生成树 普里姆算法
+     */
+    public void minspantPrim(int startVertex){
+        // 用于存放V-U中各顶点到U中各顶点的权值
+        int lowcost[] = new int[Max];
+        int mincost,k = startVertex;
+
+        // 用于记录该边在U中的那个顶点
+        int teend[] = new int[Max];
+
+        // 设置起点
+        lowcost[startVertex] = 0;
+        teend[startVertex] = startVertex;
+
+        /**
+         * 对辅助数组进行初始化
+         */
+        for (int i = 0; i < Max; i++) {
+            if(i!=startVertex){
+                teend[i] = startVertex;
+                lowcost[i] = vertices[startVertex][i];
+            }
+        }
+        for (int i = 0; i < Max; i++) {
+            mincost = MaxValue;
+            if(i!=startVertex){
+                for (int j = 0; j < Max; j++) {
+                    if(lowcost[j]>0 && mincost>lowcost[j]){
+                        mincost = lowcost[j];
+                        k = j;
+                    }
+                }
+//            选择一条一端在u，另一端在v-u上的所有边中权最小的边（k,teend[k]）
+//            输出最小生成树的一条边
+                System.out.print("("+(teend[k]+1)+","+(k+1)+"),");
+                lowcost[k]=0; // 顶点k加入到U中
+                for (int j = 0; j < Max; j++) {
+                    if(j!=startVertex && vertices[k][j] < lowcost[j]){
+                        lowcost[j] = vertices[k][j];
+                        teend[j] = k;
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    /**
      * 求最短路径的迪杰斯特拉算法
      * v到各顶点的最短路径算法
      * @param v 顶点v
@@ -441,6 +493,7 @@ public class VertexMatrix {
      * @param item
      */
     private void display(int[] item, String name) {
+        System.out.println();
         System.out.println("--------------" + name + "---------------");
         for (int i = 0; i < item.length; i++) {
             System.out.print(item[i]==MaxValue?"OO," : item[i] + ",");
@@ -567,5 +620,53 @@ public class VertexMatrix {
 //        printgraph(this.vertices, Max);
         floyd(this.vertices, graph);
 //        printgraph(graph,Max);
+    }
+
+
+    /**
+     * 算法源自于普利姆算法
+     * 方法是：用普利姆方法求最短路径，但不是n个节点，而是 m<n 个节点
+     *
+     */
+    public void primImpromve(){
+        // 用于存放V-U中各顶点到U中各顶点的权值
+        int lowcost[] = new int[Max];
+        int mincost,k = 0;
+
+        // 用于记录该边在U中的那个顶点
+        int teend[] = new int[Max];
+
+        lowcost[0] = 0;
+        teend[0] = 0;
+
+        /**
+         * 对辅助数组进行初始化
+         */
+        for (int i = 1; i < Max; i++) {
+            teend[i]=0;
+            lowcost[i] = vertices[0][i];
+        }
+
+        for (int i = 1; i < Max; i++) {
+            mincost=MaxValue;
+            int j=1;
+            while(j<Max){
+                if(lowcost[j]>0 && mincost>lowcost[j]){
+                    mincost=lowcost[j];
+                    k = j;
+                }
+                j++;
+            }
+//            选择一条一端在u，另一端在v-u上的所有边中权最小的边（k,teend[k]）
+//            输出最小生成树的一条边
+            System.out.print("("+(teend[k]+1)+","+(k+1)+"),");
+            lowcost[k]=0; // 定点k加入到U中
+            for (j = 0; j < Max; j++) {
+                if(vertices[k][j] < lowcost[j]){
+                    lowcost[j] = vertices[k][j];
+                    teend[j] = k;
+                }
+            }
+        }
     }
 }
