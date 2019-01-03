@@ -375,7 +375,7 @@ public class VertexMatrix {
             mincost=MaxValue;
             int j=1;
             while(j<Max){
-                if(lowcost[j]>0 && mincost>lowcost[j]){
+                if(lowcost[j]!=0 && mincost>lowcost[j]){
                     mincost=lowcost[j];
                     k = j;
                 }
@@ -422,7 +422,7 @@ public class VertexMatrix {
             mincost = MaxValue;
             if(i!=startVertex){
                 for (int j = 0; j < Max; j++) {
-                    if(lowcost[j]>0 && mincost>lowcost[j]){
+                    if(lowcost[j]!=0 && mincost>lowcost[j]){
                         mincost = lowcost[j];
                         k = j;
                     }
@@ -432,7 +432,7 @@ public class VertexMatrix {
                 System.out.print("("+(teend[k]+1)+","+(k+1)+"),");
                 lowcost[k]=0; // 顶点k加入到U中
                 for (int j = 0; j < Max; j++) {
-                    if(j!=startVertex && vertices[k][j] < lowcost[j]){
+                    if(lowcost[j]!=0 && j!=startVertex && vertices[k][j] < lowcost[j]){
                         lowcost[j] = vertices[k][j];
                         teend[j] = k;
                     }
@@ -473,7 +473,7 @@ public class VertexMatrix {
             mincost = MaxValue;
             if(i!=startVertex){
                 for (int j = 0; j < Max; j++) {
-                    if(lowcost[j]>0 && mincost>lowcost[j]){
+                    if(lowcost[j]!=0 && mincost>lowcost[j]){
                         mincost = lowcost[j];
                         k = j;
                     }
@@ -488,7 +488,7 @@ public class VertexMatrix {
                     break;
                 }
                 for (int j = 0; j < Max; j++) {
-                    if(j!=startVertex && vertices[k][j] < lowcost[j]){
+                    if(lowcost[j]!=0 && j!=startVertex && vertices[k][j] < lowcost[j]){
                         lowcost[j] = vertices[k][j];
                         teend[j] = k;
                     }
