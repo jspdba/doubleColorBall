@@ -16,15 +16,15 @@ public class VertexMatrix {
     /**
      * 定义最大顶点数
      */
-//    public static final int Max = 33;
-        public static final int Max = 6;
+    public static final int Max = 33;
+//        public static final int Max = 6;
 //    public static final int Max = 7;
     public static final int MaxValue = Integer.MAX_VALUE;
     /**
      * 图的所有顶点
      */
-//    private int[][] vertices = new int[Max][Max];
-   private int[][] vertices = {{
+    private int[][] vertices = new int[Max][Max];
+   /*private int[][] vertices = {{
        MaxValue, 16,20,19,MaxValue,MaxValue
     },{
        16,MaxValue,11,MaxValue,6,5
@@ -36,7 +36,7 @@ public class VertexMatrix {
        MaxValue,6,14,18,MaxValue,9
     },{
        MaxValue,5,MaxValue,MaxValue,9,MaxValue
-    }};
+    }};*/
    /*private int[][] vertices = {{
        0,10,2,MaxValue,MaxValue,MaxValue,MaxValue
     },{
@@ -98,9 +98,9 @@ public class VertexMatrix {
      * 初始化图的邻接矩阵表示
      */
     public void init(){
-        if(true){
+        /*if(true){
             return;
-        }
+        }*/
         // 创建33个顶点，并赋初值
         for (int i = 0; i < Max; i++) {
             for (int j = 0; j < Max; j++) {
@@ -681,18 +681,18 @@ public class VertexMatrix {
 
 
     /**
-     * 算法源自于普利姆算法
-     * 此方法为半成品，这里弃用了
+     * 限制顶点的最小生成树算法
+     *
      * 方法是：用普利姆方法求最短路径，但不是n个节点，而是 m<n 个节点
      *
      */
-    private void primImpromve(){
+    public void primImpromve(){
         // 用于标记已选择的入口顶点
         int pos[] = new int[Max];
         // 总共需要找到的顶点数
         int n = 6;
         for (int i = 0; i < Max; i++) {
-//            再找到 n-1 条边
+//            需找到 n-1 条边
             int total = minspantPrim(i, n-1);
             System.out.println(total);
         }
