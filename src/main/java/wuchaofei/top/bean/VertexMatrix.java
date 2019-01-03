@@ -180,14 +180,18 @@ public class VertexMatrix {
                     int row = line.get(j)-1;
                     int colume = line.get(k)-1;
                     if(vertices[row][colume]==MaxValue){
-                        vertices[row][colume] = -1;
+//                        vertices[row][colume] = -1;
+                        vertices[row][colume] = 1;
                     }else{
-                        vertices[row][colume] -=1;
+//                        vertices[row][colume] -=1;
+                        vertices[row][colume] +=1;
                     }
                     if(vertices[colume][row]==MaxValue){
-                        vertices[colume][row] = -1;
+//                        vertices[colume][row] = -1;
+                        vertices[colume][row] = 1;
                     }else{
-                        vertices[colume][row] -=1;
+//                        vertices[colume][row] -=1;
+                        vertices[colume][row] +=1;
                     }
                 }
             }
@@ -483,7 +487,7 @@ public class VertexMatrix {
                 }
 //            选择一条一端在u，另一端在v-u上的所有边中权最小的边（k,teend[k]）
 //            输出最小生成树的一条边
-                System.out.print("("+(teend[k]+1)+","+(k+1)+"),");
+                System.out.print("("+(teend[k]+1)+","+(k+1)+")\t");
                 SortUtil.insertSort(store, teend[k]+1, k+1, n+1);
                 totalCost += mincost;
                 lowcost[k]=0; // 顶点k加入到U中
