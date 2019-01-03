@@ -1,6 +1,7 @@
 package wuchaofei.top.bean;
 
 import wuchaofei.top.queue.LinkQueue;
+import wuchaofei.top.sort.SortUtil;
 import wuchaofei.top.utils.FileUtil;
 
 import java.util.ArrayList;
@@ -444,7 +445,7 @@ public class VertexMatrix {
     /**
      * 最小生成树 普里姆算法
      */
-    public int minspantPrim(int startVertex, int n){
+    public void minspantPrim(int[] store, int startVertex, int n){
         // 用于存放V-U中各顶点到U中各顶点的权值
         int lowcost[] = new int[Max];
         int mincost,k = startVertex;
@@ -469,6 +470,8 @@ public class VertexMatrix {
         }
         // 找到 n 个节点
         int findedCount = 0;
+        // 用于保存顶点的数组
+
         for (int i = 0; i < Max; i++) {
             mincost = MaxValue;
             if(i!=startVertex){
@@ -481,6 +484,7 @@ public class VertexMatrix {
 //            选择一条一端在u，另一端在v-u上的所有边中权最小的边（k,teend[k]）
 //            输出最小生成树的一条边
                 System.out.print("("+(teend[k]+1)+","+(k+1)+"),");
+                SortUtil.insertSort(store, teend[k]+1, k+1, n+1);
                 totalCost += mincost;
                 lowcost[k]=0; // 顶点k加入到U中
                 findedCount += 1;
@@ -495,8 +499,8 @@ public class VertexMatrix {
                 }
             }
         }
-
-        return totalCost;
+        store[n+1] = totalCost;
+        System.out.println();
     }
 
 
@@ -549,14 +553,18 @@ public class VertexMatrix {
      * 打印一维数组
      * @param item
      */
-    private void display(int[] item, String name) {
+    public static void display(int[] item, String name) {
         System.out.println();
-        System.out.println("--------------" + name + "---------------");
+        if(name!=null && name.length()>0){
+            System.out.println("--------------" + name + "---------------");
+        }
         for (int i = 0; i < item.length; i++) {
             System.out.print(item[i]==MaxValue?"OO," : item[i] + ",");
         }
         System.out.println();
-        System.out.println("--------------" + name + "---------------");
+        if(name!=null && name.length()>0) {
+            System.out.println("--------------" + name + "---------------");
+        }
     }
 
     /**
@@ -687,16 +695,35 @@ public class VertexMatrix {
      *
      */
     public void primImpromve(){
-        // 用于标记已选择的入口顶点
-        int pos[] = new int[Max];
         // 总共需要找到的顶点数
         int n = 6;
+
+        // 最后两位数，一个存权值一个存第一位编号
+        int[][] store = new int[Max][n+2];
+
         for (int i = 0; i < Max; i++) {
 //            需找到 n-1 条边
-            int total = minspantPrim(i, n-1);
-            System.out.println(total);
+            store[i][7]=i+1;
+            minspantPrim(store[i], i, n-1);
+        }
+        SortUtil.sort(store, n + 1);
+        displayMatrix(store, Max, n + 2);
+    }
+
+    /**
+     * 打印二维数组
+     * @param store
+     */
+    private void displayMatrix(int[][] store, int row, int col) {
+        System.out.println();
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col-2; j++) {
+                System.out.print(store[i][j]+"\t");
+            }
+            System.out.println("\t"+(store[i][col-1]<10?("0"+store[i][col-1]):store[i][col-1])+"\t"+store[i][col-2]);
         }
     }
+
     private TopoVertexLink minspantPrimOutPutVertexLink(){
         // 用于存放V-U中各顶点到U中各顶点的权值
         int lowcost[] = new int[Max];
@@ -741,6 +768,7 @@ public class VertexMatrix {
                 }
             }
         }
+        System.out.println();
         return topoVertexLink;
     }
 
