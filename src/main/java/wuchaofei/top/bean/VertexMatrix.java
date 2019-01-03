@@ -688,7 +688,7 @@ public class VertexMatrix {
      */
     private void primImpromve(){
         // 用于标记已选择的入口顶点
-        int pos[]=new int[Max];
+        int pos[] = new int[Max];
         // 总共需要找到的顶点数
         int n = 6;
         for (int i = 0; i < Max; i++) {
@@ -696,5 +696,61 @@ public class VertexMatrix {
             int total = minspantPrim(i, n-1);
             System.out.println(total);
         }
+    }
+    private TopoVertexLink minspantPrimOutPutVertexLink(){
+        // 用于存放V-U中各顶点到U中各顶点的权值
+        int lowcost[] = new int[Max];
+        int mincost,k = 0;
+
+        // 用于记录该边在U中的那个顶点
+        int teend[] = new int[Max];
+        lowcost[0]=0;
+        teend[0]=0;
+
+        // 用于存储生成过程中的边信息
+        TopoVertexLink topoVertexLink = new TopoVertexLink(Max);
+
+        /**
+         * 对辅助数组进行初始化
+         */
+        for (int i = 1; i < Max; i++) {
+            teend[i]=0;
+            lowcost[i] = vertices[0][i];
+        }
+
+        for (int i = 1; i < Max; i++) {
+            mincost=MaxValue;
+            int j=1;
+            while(j<Max){
+                if(lowcost[j]>0 && mincost>lowcost[j]){
+                    mincost=lowcost[j];
+                    k = j;
+                }
+                j++;
+            }
+//            选择一条一端在u，另一端在v-u上的所有边中权最小的边（k,teend[k]）
+//            输出最小生成树的一条边
+            System.out.print("("+(teend[k]+1)+","+(k+1)+"),");
+            // 添加一条边
+            topoVertexLink.addEdge(teend[k], k, mincost);
+            lowcost[k]=0; // 定点k加入到U中
+            for (j = 0; j < Max; j++) {
+                if(vertices[k][j] < lowcost[j]){
+                    lowcost[j] = vertices[k][j];
+                    teend[j] = k;
+                }
+            }
+        }
+        return topoVertexLink;
+    }
+
+    /**
+     * 拓扑排序
+     * 普利姆算法查找最短路径，拓扑排序算法打印拓扑结构
+     */
+    public void minspantPrimWithTopoSort(int m){
+        TopoVertexLink topoVertexLink = minspantPrimOutPutVertexLink();
+        topoVertexLink.topSort();
+        display(topoVertexLink.outputs, "outputs");
     }
 }

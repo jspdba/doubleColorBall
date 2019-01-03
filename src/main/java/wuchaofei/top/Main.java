@@ -25,10 +25,13 @@ public class Main {
         vertexMatrix.init();
 //        System.out.println(vertexMatrix.toString());
 //        求最短路径的普里姆算法
-//        vertexMatrix.minspantPrim(1-1);
+//        vertexMatrix.minspantPrim(6-1);
         // 迪杰斯特拉算法求最短路径
 //        vertexMatrix.shortestPath(1-1);
 //        vertexMatrix.runFloyed();
+//        vertexMatrix.minspantPrim(1-1);
+
+        vertexMatrix.minspantPrimWithTopoSort(4);
     }
 
 }
