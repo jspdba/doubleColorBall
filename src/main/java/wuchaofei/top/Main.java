@@ -32,7 +32,8 @@ public class Main {
 //        vertexMatrix.minspantPrim(1-1);
 
 //        vertexMatrix.minspantPrimWithTopoSort(4);
-        vertexMatrix.primImpromve();
+//        vertexMatrix.primImpromve();
+        vertexMatrix.toDot();
     }
 
 }

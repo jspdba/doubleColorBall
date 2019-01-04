@@ -785,4 +785,22 @@ public class VertexMatrix {
         topoVertexLink.topSort();
         display(topoVertexLink.outputs, "outputs");
     }
+
+    /**
+     * 输出 dot 字符串
+     */
+    public void toDot(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("digraph G {\n");
+        sb.append("node [shape = circle];\n");
+        for (int i = 0; i < Max; i++) {
+            for (int j = 0; j < Max; j++) {
+                if(i!=j){
+                    sb.append("    r"+i+" -> r" + j + " [label=\"" +vertices[i][j]+"\"];\n");
+                }
+            }
+        }
+        sb.append("}\n");
+        System.out.println(sb);
+    }
 }
