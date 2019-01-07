@@ -1,6 +1,8 @@
 package wuchaofei.top;
 
+import wuchaofei.top.ChooseOfficeSupplies.Choose;
 import wuchaofei.top.bean.VertexMatrix;
+import wuchaofei.top.utils.ExcelUtil;
 
 /**
  * Created by cofco on 2018/12/29.
@@ -21,8 +23,8 @@ public class Main {
 
 
 //        图的邻接矩阵算法
-        VertexMatrix vertexMatrix = new VertexMatrix();
-        vertexMatrix.init();
+//        VertexMatrix vertexMatrix = new VertexMatrix();
+//        vertexMatrix.init();
 //        System.out.println(vertexMatrix.toString());
 //        求最短路径的普里姆算法
 //        vertexMatrix.minspantPrim(6-1);
@@ -33,7 +35,11 @@ public class Main {
 
 //        vertexMatrix.minspantPrimWithTopoSort(4);
 //        vertexMatrix.primImpromve();
-        vertexMatrix.toDot();
+//        vertexMatrix.toDot();
+
+        // 最优组合
+        Choose choose = new Choose();
+        choose.run();
     }
 
 }
