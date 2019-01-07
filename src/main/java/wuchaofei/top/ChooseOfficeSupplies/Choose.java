@@ -109,7 +109,6 @@ public class Choose {
             }
         }
 
-        // todo 从再次选择一个商品
         while(surplusCount > 0){
             // 选择一个最优商品
             // 首先选择一个价值最大商品
