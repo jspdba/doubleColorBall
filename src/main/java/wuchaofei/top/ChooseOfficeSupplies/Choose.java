@@ -30,17 +30,106 @@ public class Choose {
     private final double totalValue = 21;
 
     public void run(){
-        resolveData();
+        resolveData("C:\\Users\\cofco\\Documents\\Tencent Files\\425258654\\FileRecv\\2018史泰博最新办公用品清单 (3).xlsx");
 //        algorithm("1100015269");
-        algorithm("1100011281");
+//        algorithm("1100011281");
+//        algorithm("1100020857");
+        for (int i = 0; i < canChooseProduct.size(); i++) {
+            System.out.println("------------------------------");
+            algorithm(i);
+        }
+    }
+
+    /**
+     * 根据序列号判断必选商品
+     * @param index 商品序号
+     */
+    private void algorithm(int index) {
+        int size = this.canChooseProduct.size();
+        int[] uProduct = new int[size];
+        int[] vProduct = new int[size];
+
+        // 剩余价值
+        double surplusValue = 21;
+        // 使用价值
+        double totalUsedValue = 0;
+        // 剩余可选商品数
+        int surplusCount = 0;
+
+        // 必须选择的商品
+        Product mustChooseProduct = null;
+        int mustChooseProductIndex = index;
+        // 初始化 u 代表已选择的商品
+        mustChooseProduct = canChooseProduct.get(index);
+        // 代表选择了这个商品
+        uProduct[index] = 1;
+
+        // 剩余价值
+        surplusValue = surplusValue - mustChooseProduct.getPrice();
+        totalUsedValue += mustChooseProduct.getPrice();
+
+        // 初始化 v代表可选商品的个数
+        for (int i = 0; i < size; i++) {
+            Product product = canChooseProduct.get(i);
+            int count = (int)(surplusValue/product.getPrice());
+            // 可选商品数>0,否则不可选
+            vProduct[i] = count;
+            if(count>0){
+                // 剩余可选商品数
+                surplusCount += count;
+            }
+        }
+
+        while(surplusCount > 0){
+            // 选择一个最优商品
+            // 首先选择一个价值最大商品
+            int maxValue = -1;
+            for (int i = 0; i < size; i++) {
+                if(vProduct[i]>0){
+                    if(maxValue==-1){
+                        maxValue = i;
+                    }else if(canChooseProduct.get(i).getPrice() > canChooseProduct.get(maxValue).getPrice()){
+                        maxValue = i;
+                    }
+                }
+            }
+            if(maxValue>-1){
+                uProduct[maxValue]++;
+                // 更新剩余价值
+                surplusValue = surplusValue - canChooseProduct.get(maxValue).getPrice();
+                totalUsedValue += canChooseProduct.get(maxValue).getPrice();
+                surplusCount = 0;
+                for (int i = 0; i < size; i++) {
+                    Product product = canChooseProduct.get(i);
+                    // 如果是单独购买此商品可以购买数量
+                    int count = (int)(surplusValue/product.getPrice());
+                    // 可选商品数>0,否则不可选
+                    vProduct[i] = count;
+                    if(count>0){
+                        // 剩余可选商品数
+                        surplusCount += count;
+                    }
+                }
+            }else{
+                break;
+            }
+        }
+        // 剩余价值
+        System.out.println("(剩余价值="+ExcelUtil.double2String(surplusValue)+"，使用价值="+totalUsedValue+")");
+        // 选择的商品
+        for (int i = 0; i < size; i++) {
+            if(uProduct[i]>0){
+                System.out.println(canChooseProduct.get(i)+"*" + uProduct[i] + canChooseProduct.get(i).getUnit());
+            }
+        }
     }
 
     /**
      * 解析excel数据
      * @return
      */
-    private void resolveData(){
-        List<Map<String, String>> data = ExcelUtil.readData("C:\\Users\\cofco\\Documents\\Tencent Files\\425258654\\FileRecv\\2018史泰博最新办公用品清单 (3).xlsx");
+    private void resolveData(String path){
+        List<Map<String, String>> data = ExcelUtil.readData(path);
         if(totalProducts==null){
             totalProducts = new ArrayList<Product>();
             canChooseProduct = new ArrayList<Product>();
@@ -91,7 +180,7 @@ public class Choose {
                 mustChooseProduct = product;
                 mustChooseProductIndex = i;
                 // 剩余价值
-                surplusValue = totalValue - mustChooseProduct.getPrice();
+                surplusValue = surplusValue - mustChooseProduct.getPrice();
                 totalUsedValue += mustChooseProduct.getPrice();
                 break;
             }
@@ -144,7 +233,7 @@ public class Choose {
             }
         }
         // 剩余价值
-        System.out.println("(剩余价值="+surplusValue+"，使用价值="+totalUsedValue+")");
+        System.out.println("(剩余价值="+ExcelUtil.double2String(surplusValue) + "，使用价值="+totalUsedValue+")");
         // 选择的商品
         for (int i = 0; i < size; i++) {
             if(uProduct[i]>0){

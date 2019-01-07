@@ -188,13 +188,7 @@ public class ExcelUtil {
                                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                     rowMap.put(""+cell.getColumnIndex(),sdf.format(org.apache.poi.ss.usermodel.DateUtil.getJavaDate(value)));
                                 }else{
-                                    String str = "" + cell.getNumericCellValue();
-                                    if(str.toLowerCase().indexOf("e")>-1){
-                                        BigDecimal bd = new BigDecimal(cell.getNumericCellValue());
-                                        rowMap.put(""+cell.getColumnIndex(), bd.toPlainString());
-                                    }else{
-                                        rowMap.put(""+cell.getColumnIndex(), str);
-                                    }
+                                    rowMap.put(""+cell.getColumnIndex(), double2String(cell.getNumericCellValue()));
                                 }
                                 break;
                             case HSSFCell.CELL_TYPE_STRING:
@@ -268,5 +262,18 @@ public class ExcelUtil {
         int point = resultStr.indexOf(".");
         resultStr = resultStr.substring(0, point);
         return resultStr;
+    }
+
+    /**
+     * double转string
+     * @param value
+     * @return
+     */
+    public static String double2String(double value){
+        String result = String .format("%.2f",value);
+        if(value>100){
+            result = new BigDecimal(value).toPlainString();
+        }
+        return  result;
     }
 }
