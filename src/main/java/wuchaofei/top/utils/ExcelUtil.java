@@ -173,7 +173,10 @@ public class ExcelUtil {
                         }
                         switch (cell.getCellType()) {   //根据cell中的类型来输出数据
                             case HSSFCell.CELL_TYPE_NUMERIC:
-                                double value = cell.getNumericCellValue();
+                                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+                                String value = cell.getStringCellValue();
+                                rowMap.put(""+cell.getColumnIndex(), value);
+                                /*double value = cell.getNumericCellValue();
                                 short format = cell.getCellStyle().getDataFormat();
                                 if(format == 14 || format == 31 || format == 57 || format == 58){
                                     //日期
@@ -189,7 +192,7 @@ public class ExcelUtil {
                                     rowMap.put(""+cell.getColumnIndex(),sdf.format(org.apache.poi.ss.usermodel.DateUtil.getJavaDate(value)));
                                 }else{
                                     rowMap.put(""+cell.getColumnIndex(), double2String(cell.getNumericCellValue()));
-                                }
+                                }*/
                                 break;
                             case HSSFCell.CELL_TYPE_STRING:
                                 // 自动去两边空格
@@ -275,5 +278,14 @@ public class ExcelUtil {
             result = new BigDecimal(value).toPlainString();
         }
         return  result;
+    }
+
+    /**
+     * 取2位小数
+     * @param d
+     * @return
+     */
+    public static double formatDouble1(double d) {
+        return (double)Math.round(d*100)/100;
     }
 }

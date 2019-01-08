@@ -1,8 +1,6 @@
 package wuchaofei.top;
 
-import wuchaofei.top.ChooseOfficeSupplies.Choose;
-import wuchaofei.top.bean.VertexMatrix;
-import wuchaofei.top.utils.ExcelUtil;
+import wuchaofei.top.ChooseOfficeSupplies.ChooseBestAlgorithm;
 
 /**
  * Created by cofco on 2018/12/29.
@@ -38,8 +36,11 @@ public class Main {
 //        vertexMatrix.toDot();
 
         // 最优组合
-        Choose choose = new Choose();
-        choose.run();
+//        Choose choose = new Choose();
+//        choose.run();
+
+        ChooseBestAlgorithm chooseBestAlgorithm = new ChooseBestAlgorithm();
+        chooseBestAlgorithm.run();
     }
 
 }

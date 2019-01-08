@@ -61,7 +61,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "{" +
                 "name='" + name + '\'' +
                 ", unit='" + unit + '\'' +
                 ", sn='" + sn + '\'' +
