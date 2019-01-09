@@ -1,6 +1,7 @@
 package wuchaofei.top;
 
 import wuchaofei.top.ChooseOfficeSupplies.ChooseBestAlgorithm;
+import wuchaofei.top.huishuo.Queen8;
 
 /**
  * Created by cofco on 2018/12/29.
@@ -39,8 +40,10 @@ public class Main {
 //        Choose choose = new Choose();
 //        choose.run();
 
-        ChooseBestAlgorithm chooseBestAlgorithm = new ChooseBestAlgorithm();
-        chooseBestAlgorithm.run();
+//        ChooseBestAlgorithm chooseBestAlgorithm = new ChooseBestAlgorithm();
+//        chooseBestAlgorithm.run();
+
+        Queen8.cal8queens(0);
     }
 
 }
