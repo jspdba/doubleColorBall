@@ -2,6 +2,7 @@ package wuchaofei.top;
 
 import wuchaofei.top.ChooseOfficeSupplies.ChooseBestAlgorithm;
 import wuchaofei.top.huishuo.Queen8;
+import wuchaofei.top.huishuo.ZeroBag;
 
 /**
  * Created by cofco on 2018/12/29.
@@ -43,7 +44,9 @@ public class Main {
 //        ChooseBestAlgorithm chooseBestAlgorithm = new ChooseBestAlgorithm();
 //        chooseBestAlgorithm.run();
 
-        Queen8.cal8queens(0);
+//        Queen8.cal8queens(0);
+        // 0-1背包问题求解
+        ZeroBag.run();
     }
 
 }
