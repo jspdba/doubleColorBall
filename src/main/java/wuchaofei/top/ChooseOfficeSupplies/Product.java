@@ -18,6 +18,8 @@ public class Product {
     private String desc;
 //    价格
     private double price;
+//    用于计算的价格
+    private int calcPrice;
 
     public String getName() {
         return name;
@@ -68,5 +70,9 @@ public class Product {
                 ", desc='" + desc + '\'' +
                 ", price=" + price +
                 '}';
+    }
+
+    public int getCalcPrice() {
+        return (int)(price * 100);
     }
 }

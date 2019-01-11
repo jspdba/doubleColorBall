@@ -1,6 +1,7 @@
 package wuchaofei.top;
 
 import wuchaofei.top.ChooseOfficeSupplies.ChooseBestAlgorithm;
+import wuchaofei.top.DynamicProgramming.OfficeSuppliesChoose;
 import wuchaofei.top.huishuo.Queen8;
 import wuchaofei.top.huishuo.ZeroBag;
 
@@ -46,7 +47,11 @@ public class Main {
 
 //        Queen8.cal8queens(0);
         // 0-1背包问题求解
-        ZeroBag.run();
+//        ZeroBag.run();
+
+        // 办公用品选择
+        OfficeSuppliesChoose officeSuppliesChoose = new OfficeSuppliesChoose();
+        officeSuppliesChoose.program_1_2();
     }
 
 }

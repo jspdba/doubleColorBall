@@ -24,9 +24,7 @@ public class ZeroBag {
 //        System.out.println("i="+i+" ");
         if (cw + items[i] <= w) {// 已经超过可以背包承受的重量的时候，就不要再装了
             // 这里设置一个标记数组
-            System.out.println("放进"+i);
             f(i+1,cw + items[i], items, n, w);
-            System.out.println("退出"+i);
         }
     }
 
