@@ -42,6 +42,7 @@ public class OfficeSuppliesChoose {
 
     /**
      * 动态规划求办公用品
+     * todo 下一步是做一个折叠结构，将相同价格商品折叠起来看做同一个商品
      */
     public void program_1_2(){
         // 初始化数据
