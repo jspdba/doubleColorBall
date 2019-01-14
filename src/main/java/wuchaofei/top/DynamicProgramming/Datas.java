@@ -4,6 +4,7 @@ import wuchaofei.top.ChooseOfficeSupplies.Product;
 import wuchaofei.top.utils.ExcelUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,11 @@ public class Datas {
     private int calcTotalValue;
 
     /**
+     * 按价格折叠的商品（相同价格的商品放到一个桶里）
+     */
+    private Map<Integer, ArrayList<Product>> foldedProductListMap;
+
+    /**
      * 解析excel数据
      * @return
      */
@@ -56,8 +62,27 @@ public class Datas {
             }
         }
         data = null;
+        // 按价格折叠商品
+        foldUpProducts();
     }
-
+    private void foldUpProducts(){
+//        对可选择商品进行折叠
+        foldedProductListMap = new HashMap<Integer, ArrayList<Product>>();
+        for (Product product : canChooseProduct) {
+            ArrayList<Product> productList = foldedProductListMap.get(product.getCalcPrice());
+            if(productList == null){
+                productList = new ArrayList<Product>();
+            }
+            productList.add(product);
+            foldedProductListMap.put(product.getCalcPrice(), productList);
+        }
+        int size = foldedProductListMap.size();
+        canChooseProduct = new ArrayList<Product>(size);
+        // 将折叠后的数据填充进可选商品列表
+        for (Map.Entry<Integer, ArrayList<Product>> productMap : foldedProductListMap.entrySet()) {
+            canChooseProduct.add(productMap.getValue().get(0));
+        }
+    }
     public List<Product> getTotalProducts() {
         return totalProducts;
     }
@@ -80,5 +105,13 @@ public class Datas {
 
     public int getCalcTotalValue() {
         return (int)(totalValue*100);
+    }
+
+    public Map<Integer, ArrayList<Product>> getFoldedProductListMap() {
+        return foldedProductListMap;
+    }
+
+    public void setFoldedProductListMap(Map<Integer, ArrayList<Product>> foldedProductListMap) {
+        this.foldedProductListMap = foldedProductListMap;
     }
 }
