@@ -1,9 +1,6 @@
 package wuchaofei.top;
 
-import wuchaofei.top.ChooseOfficeSupplies.ChooseBestAlgorithm;
-import wuchaofei.top.DynamicProgramming.OfficeSuppliesChoose;
-import wuchaofei.top.huishuo.Queen8;
-import wuchaofei.top.huishuo.ZeroBag;
+import wuchaofei.top.bean.VertexMatrix;
 
 /**
  * Created by cofco on 2018/12/29.
@@ -23,9 +20,9 @@ public class Main {
 
 
 
-//        图的邻接矩阵算法
-//        VertexMatrix vertexMatrix = new VertexMatrix();
-//        vertexMatrix.init();
+/*//        图的邻接矩阵算法
+        VertexMatrix vertexMatrix = new VertexMatrix();
+        vertexMatrix.init();
 //        System.out.println(vertexMatrix.toString());
 //        求最短路径的普里姆算法
 //        vertexMatrix.minspantPrim(6-1);
@@ -35,8 +32,9 @@ public class Main {
 //        vertexMatrix.minspantPrim(1-1);
 
 //        vertexMatrix.minspantPrimWithTopoSort(4);
-//        vertexMatrix.primImpromve();
-//        vertexMatrix.toDot();
+        // 球最短路径求法（一组数之间路径加1）
+        vertexMatrix.primImpromve();
+//        vertexMatrix.toDot();*/
 
         // 最优组合
 //        Choose choose = new Choose();
@@ -50,8 +48,8 @@ public class Main {
 //        ZeroBag.run();
 
         // 办公用品选择
-        OfficeSuppliesChoose officeSuppliesChoose = new OfficeSuppliesChoose();
-        officeSuppliesChoose.program_1_2();
+//        OfficeSuppliesChoose officeSuppliesChoose = new OfficeSuppliesChoose();
+//        officeSuppliesChoose.program_1_2();
     }
 
 }

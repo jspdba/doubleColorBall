@@ -113,7 +113,7 @@ public class VertexMatrix {
 
 //        对数据进行图的邻接表存储
 //        对相邻数据关联+1
-        for (int i = 0; i < result.size(); i++) {
+        /*for (int i = 0; i < result.size(); i++) {
             ArrayList<Integer> line = result.get(i);
             for (int j = 0; j < line.size()-1; j++) {
                 int row = line.get(j)-1;
@@ -124,13 +124,13 @@ public class VertexMatrix {
                     vertices[row][colume] +=1;
                 }
 
-//                if(vertices[colume][row]==MaxValue){
-//                    vertices[colume][row] = 1;
-//                }else{
-//                    vertices[colume][row] +=1;
-//                }
+                if(vertices[colume][row]==MaxValue){
+                    vertices[colume][row] = 1;
+                }else{
+                    vertices[colume][row] +=1;
+                }
             }
-        }
+        }*/
 
         /*for (int i = 0; i < result.size(); i++) {
             ArrayList<Integer> line = result.get(i);
@@ -173,29 +173,29 @@ public class VertexMatrix {
             }
         }*/
 //        对同组的数据关联 -1
-        /*for (int i = 0; i < result.size(); i++) {
+        for (int i = 0; i < result.size(); i++) {
             ArrayList<Integer> line = result.get(i);
             for (int j = 0; j < line.size()-1; j++) {
                 for (int k = j+1; k < line.size(); k++) {
                     int row = line.get(j)-1;
                     int colume = line.get(k)-1;
                     if(vertices[row][colume]==MaxValue){
-//                        vertices[row][colume] = -1;
-                        vertices[row][colume] = 1;
+                        vertices[row][colume] = -1;
+//                        vertices[row][colume] = 1;
                     }else{
-//                        vertices[row][colume] -=1;
-                        vertices[row][colume] +=1;
+                        vertices[row][colume] -=1;
+//                        vertices[row][colume] +=1;
                     }
                     if(vertices[colume][row]==MaxValue){
-//                        vertices[colume][row] = -1;
-                        vertices[colume][row] = 1;
+                        vertices[colume][row] = -1;
+//                        vertices[colume][row] = 1;
                     }else{
-//                        vertices[colume][row] -=1;
-                        vertices[colume][row] +=1;
+                        vertices[colume][row] -=1;
+//                        vertices[colume][row] +=1;
                     }
                 }
             }
-        }*/
+        }
     }
 
     @Override

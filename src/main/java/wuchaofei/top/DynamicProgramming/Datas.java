@@ -65,6 +65,10 @@ public class Datas {
         // 按价格折叠商品
         foldUpProducts();
     }
+
+    /**
+     * 按价格对可选商品列表折叠（相同价格只计算一次）
+     */
     private void foldUpProducts(){
 //        对可选择商品进行折叠
         foldedProductListMap = new HashMap<Integer, ArrayList<Product>>();
