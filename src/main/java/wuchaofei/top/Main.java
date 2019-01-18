@@ -1,6 +1,7 @@
 package wuchaofei.top;
 
 import wuchaofei.top.bean.VertexMatrix;
+import wuchaofei.top.lcs.LonggestCommonSubsequence;
 
 /**
  * Created by cofco on 2018/12/29.
@@ -50,6 +51,9 @@ public class Main {
         // 办公用品选择
 //        OfficeSuppliesChoose officeSuppliesChoose = new OfficeSuppliesChoose();
 //        officeSuppliesChoose.program_1_2();
+
+        // 计算公共子序列
+        LonggestCommonSubsequence.commonSubsequence("123456", "23456586");
     }
 
 }
