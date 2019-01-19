@@ -1,6 +1,6 @@
 package wuchaofei.top;
 
-import wuchaofei.top.bean.VertexMatrix;
+import wuchaofei.top.lcs.LongestCommonSubObject;
 import wuchaofei.top.lcs.LonggestCommonSubsequence;
 
 /**
@@ -53,7 +53,10 @@ public class Main {
 //        officeSuppliesChoose.program_1_2();
 
         // 计算公共子序列
-        LonggestCommonSubsequence.commonSubsequence("123456", "23456586");
+//        LonggestCommonSubsequence.commonSubsequence("123456", "23456586");
+        // 计算一组数列其中两个的的相似度，
+//        LongestCommonSubObject.conputeSimilerArray();
+        LongestCommonSubObject.conputeSimilerArrayForTest();
     }
 
 }
